@@ -34,7 +34,6 @@ const { formatDate } = require('./helpers/hbs');
 // Handlebars
 app.engine('.hbs', exphbs.engine({helpers: {formatDate}, defaultLayout: 'main', extname: '.hbs'}));
 app.set('view engine', '.hbs');
-app.set('views', './views');
 // Sessions
 app.use(
     session({

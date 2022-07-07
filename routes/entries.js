@@ -23,4 +23,22 @@ router.post('/', ensureAuth, async (req, res) => {
     }
 });
 
+// @desc    Show All Entries page
+// @route   GET /entries
+router.get('/', ensureAuth, async (req, res) => {
+    try {
+        const entries = await Entry.find({ status: 'public' })
+            .populate('user')
+            .sort({ createdAt: 'desc' })
+            .lean()
+
+        res.render('entries/index', {
+            entries
+        })
+    } catch (err) {
+        console.error(err)
+        res.render('errors/500')
+    }
+});
+
 module.exports = router;
