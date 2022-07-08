@@ -16,5 +16,16 @@ module.exports = {
     },
     stripTags: function (input) {
         return input.replace(/<(?:.|\n)*?>/gm, '')
+    },
+    editIcon: function (entryUser, loggedUser, entryId, floating = true) {
+        if(entryUser._id.toString() == loggedUser._id.toString()) {
+            if(floating) {
+                return `<a href="/entries/edit/${entryId}" class="btn-floating halfway-fab blue"><i class="fas fa-pen fa-small"></i></a>`
+            } else {
+                return `<a href="/entries/edit/${entryId}"><i class="fas fa-edit"></i></a>`
+            }
+        } else {
+            return ''
+        }
     }
 };
