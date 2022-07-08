@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     image: {
-        type: String
+        type: String,
     },
     createdAt: {
         type: Date,
