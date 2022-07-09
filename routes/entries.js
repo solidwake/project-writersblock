@@ -41,6 +41,27 @@ router.get('/', ensureAuth, async (req, res) => {
     }
 });
 
+// @desc    Show single entry
+// @route   GET /entries/:id
+router.get('/:id', ensureAuth, async (req, res) => {
+    try {
+        let entry = await Entry.findById(req.params.id)
+        .populate('user')
+        .lean()
+
+        if(!entry) {
+            return res.render('errors/404')
+        }
+
+        res.render('entries/show', {
+            entry
+        })
+    } catch (err) {
+        console.error(err)
+        res.render('errors/404')
+    }
+});
+
 // @desc    Show Edit Entry page
 // @route   GET /entries/edit/:id
 router.get('/edit/:id', ensureAuth, async (req, res) => {
