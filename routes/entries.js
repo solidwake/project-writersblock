@@ -125,4 +125,24 @@ router.delete('/:id', ensureAuth, async (req, res) => {
     }
 });
 
+// @desc    User entries
+// @route   GET /entries/user/:userId
+router.get('/user/:userId', ensureAuth, async (req, res) => {
+    try {
+        const entries = await Entry.find({
+            user: req.params.userId,
+            status: 'public'
+        })
+        .populate('user')
+        .lean()
+
+        res.render('entries/index', {
+            entries
+        })
+    } catch (err) {
+        console.error(err)
+        res.render('errors/500')
+    }
+});
+
 module.exports = router;
